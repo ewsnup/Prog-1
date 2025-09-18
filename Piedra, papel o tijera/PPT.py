@@ -23,7 +23,7 @@ def jugar_piedra_papel_tijera() -> str:
     
     while verificar_estado_partida(aciertos_jugador, aciertos_maquina, ronda_actual):
         ronda_actual += 1
-        print(f"\n🔹 RONDA {ronda_actual}")
+        print(f"\nRONDA {ronda_actual}")
         print("-" * 30)
         
         # Obtener elecciones
@@ -38,7 +38,7 @@ def jugar_piedra_papel_tijera() -> str:
             aciertos_jugador += 1
             victorias_seguidas_jugador += 1
             victorias_seguidas_maquina = 0
-            print("🏆 ¡Gana el Jugador!")
+            print("¡Gana el Jugador!")
         elif verificar_ganador(eleccion_jugador, eleccion_maquina) == "Máquina":
             aciertos_maquina += 1
             victorias_seguidas_maquina += 1
@@ -76,5 +76,6 @@ def jugar_piedra_papel_tijera() -> str:
     print("=" * 50)
     
     return ganador_final
+
 
 jugar_piedra_papel_tijera()
