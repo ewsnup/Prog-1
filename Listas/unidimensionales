@@ -1,0 +1,230 @@
+#1. Desarrollar una función que permita crear un array de números con la cantidad de elementos que establezca el parámetro recibido.
+
+def inicializar_lista(cantidad: int, valor_por_defecto: int = 0) -> list:
+    return [valor_por_defecto] * cantidad
+
+print(inicializar_lista(5))
+
+# 2. Escribir una función que permita ingresar la cantidad de números que reciba como parámetro.  Crear el array con la función del punto 1.
+
+def ingresar_numeros_lista(cantidad: int) -> list:
+    lista = inicializar_lista(cantidad)
+    
+    print(f"Ingrese {cantidad} números para el array:")
+    
+    for i in range(cantidad):
+        while True:
+                valor = int(input(f"Posición {i}: "))
+                lista[i] = valor
+                break
+    
+    return lista
+
+
+cantidad = int(input("¿Cuántos números desea ingresar? "))
+        
+if cantidad <= 0:
+    print("La cantidad debe ser un número positivo")
+else:
+    mi_lista = ingresar_numeros_lista(cantidad)
+    print(f"Lista final: {mi_lista}")
+
+#3. Escribir una función que reciba una lista de enteros, la misma calculará y devolverá el promedio de todos los números. 
+
+def calcular_promedio_lista(lista: list) -> int:
+
+    suma_total = 0
+    for numero in lista:
+        suma_total += numero
+    
+    return suma_total / len(lista)
+
+print(calcular_promedio_lista([3, 5, 6, 15, 27]))
+
+#4. Escribir una función parecida a la anterior, pero la misma deberá calcular y devolver el promedio de los números positivos.
+
+def promedio_positivos(lista_enteros: list) -> int:
+    suma_positivos = 0
+    cantidad_positivos = 0
+    
+    for numero in lista_enteros:
+        if numero > 0:
+            suma_positivos += numero
+            cantidad_positivos += 1
+
+    if cantidad_positivos == 0:
+        return 0.0
+    
+    return suma_positivos / cantidad_positivos
+
+print(promedio_positivos([3, -5, 6, 15, -27]))
+
+#5. Escribir una función que calcule y retorne el producto de todos los elementos de la lista que recibe como parámetro.
+
+def producto_lista(lista_numeros: list) -> int:
+    producto = 1
+    for numero in lista_numeros:
+        producto *= numero
+    
+    return producto
+
+print(producto_lista([3, 5, 6, 15, 27]))
+
+#6. Escribir una función que reciba como parámetros una lista de enteros y retorne la posición del valor máximo encontrado.
+
+def valor_max_lista(lista_numeros: list) -> int:
+    max_valor = None
+
+    for numero in lista_numeros:
+        if max_valor == None:
+            max_valor = numero
+        elif numero > max_valor:
+            max_valor = numero
+
+    return max_valor
+
+print(valor_max_lista([3, 5, 6, 15, 27]))
+
+#7. Escribir una función que reciba como parámetros una lista de enteros y muestre la/las posiciones en donde se encuentra el valor máximo hallado.
+
+def mostrar_valor_max_lista(lista_numeros: list) -> int:
+    max_valor = lista_numeros[0]
+    max_posicion = 0
+    
+    for i in range(1, len(lista_numeros)):
+        if lista_numeros[i] > max_valor:
+            max_valor = lista_numeros[i]
+            max_posicion = i
+    
+    return f"El número máximo es {max_valor} en la posición {max_posicion}"
+
+print(mostrar_valor_max_lista([3, 5, 6, 15, 27]))
+
+#8. Implementar una función llamada reemplazar_nombres que reciba los siguientes parámetros:
+    # Una lista de nombres (lista_nombres).
+    # Un nombre a buscar en la lista (nombre_antiguo).
+    # Un nombre de reemplazo (nombre_nuevo).
+# La función debe realizar las siguientes acciones:
+    # Reemplazar todas las apariciones de nombre_antiguo en lista_nombres por nombre_nuevo.
+    # Retornar la cantidad total de reemplazos realizados.
+
+def reemplazar_nombres(lista_nombres: list, nombre_antiguo: list, nombre_nuevo: list) -> int:
+    contador_reemplazos = 0
+    
+    for i in range(len(lista_nombres)):
+        if lista_nombres[i] == nombre_antiguo:
+            lista_nombres[i] = nombre_nuevo
+            contador_reemplazos += 1
+    
+    return contador_reemplazos
+
+lista_nombres = ["Sofía", "Sienna", "Lucía", "Lilith", "Carolina"]
+reemplazos = reemplazar_nombres(lista_nombres, "Sofía", "Mora")
+print(f"Lista modificada: {lista_nombres}")
+print(f"Reemplazos realizados: {reemplazos}")
+
+#9. Crear una función que reciba como parámetros dos arrays. La función deberá mostrar la intersección de los dos arrays.
+
+def encontrar_interseccion(lista1: list, lista2: list) -> list:
+    interseccion = []
+    
+    for i in range(len(lista1)):
+        elemento = lista1[i]
+        encontrado_en_lista2 = False
+        ya_en_interseccion = False
+        
+        for j in range(len(lista2)):
+            if lista2[j] == elemento:
+                encontrado_en_lista2 = True
+                break
+        
+        for k in range(len(interseccion)):
+            if interseccion[k] == elemento:
+                ya_en_interseccion = True
+                break
+        
+        if encontrado_en_lista2 and not ya_en_interseccion:
+            nueva_lista = [None] * (len(interseccion) + 1)
+            
+            for m in range(len(interseccion)):
+                nueva_lista[m] = interseccion[m]
+
+            nueva_lista[len(interseccion)] = elemento
+            interseccion = nueva_lista
+    
+    return interseccion
+
+lista_a = ['j', 'a', 'c', 'f']
+lista_b = ['g', 'l', 'e', 'h', 'a', 'c']
+
+resultado = encontrar_interseccion(lista_a, lista_b)
+print(f"Intersección: {resultado}")
+
+#10. Crear una función que reciba como parámetros dos arrays. La función deberá mostrar la unión de los dos arrays.
+
+def union_arrays(lista1: list, lista2: list) -> list:
+    resultado = []
+    
+    for i in range(len(lista1)):
+        nueva_lista = [None] * (len(resultado) + 1)
+
+        for j in range(len(resultado)):
+            nueva_lista[j] = resultado[j]
+        
+        nueva_lista[len(resultado)] = lista1[i]
+        resultado = nueva_lista
+    
+    for elemento in lista2:
+        encontrado = False
+        for item in resultado:
+            if item == elemento:
+                encontrado = True
+                break
+        
+        if not encontrado:
+            nueva_lista = [None] * (len(resultado) + 1)
+            
+            for k in range(len(resultado)):
+                nueva_lista[k] = resultado[k]
+            
+            nueva_lista[len(resultado)] = elemento
+            resultado = nueva_lista
+    
+    return resultado
+
+lista_a = [1, 2, 3, 4]
+lista_b = [3, 4, 5, 6]
+print(f"Unión: {union_arrays(lista_a, lista_b)}")
+
+#11. Crear una función que reciba como parámetros dos arrays. La función deberá mostrar la diferencia de los dos arrays.
+
+def diferencia_arrays(lista1, lista2):
+    resultado = []
+    
+    for elemento in lista1:
+        encontrado_en_array2 = False
+        for item in lista2:
+            if item == elemento:
+                encontrado_en_array2 = True
+                break
+        
+        ya_en_resultado = False
+        for item in resultado:
+            if item == elemento:
+                ya_en_resultado = True
+                break
+
+        if not encontrado_en_array2 and not ya_en_resultado:
+            nueva_lista = [None] * (len(resultado) + 1)
+            
+            for i in range(len(resultado)):
+                nueva_lista[i] = resultado[i]
+            
+            nueva_lista[len(resultado)] = elemento
+            resultado = nueva_lista
+    
+    return resultado
+
+lista_a = [1, 2, 3, 4, 2]
+lista_b = [3, 4, 5, 6]
+print(f"Diferencia (A - B): {diferencia_arrays(lista_a, lista_b)}") 
